@@ -1,0 +1,87 @@
+body {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 20px;
+  margin: 0;
+  background-image: linear-gradient(135deg, transparent 0%, transparent 6%, rgba(3, 26, 79, 0.31) 6%, rgba(3, 26, 79, 0.31) 22%, transparent 22%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 20%, rgba(3, 26, 79, 0.31) 20%, rgba(3, 26, 79, 0.31) 47%, transparent 47%, transparent 100%), linear-gradient(135deg, transparent 0%, transparent 24%, rgba(3, 26, 79, 0.31) 24%, rgba(3, 26, 79, 0.31) 62%, transparent 62%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 73%, rgba(3, 26, 79, 0.31) 73%, rgba(3, 26, 79, 0.31) 75%, transparent 75%, transparent 100%), linear-gradient(90deg, rgb(114, 164, 230), rgb(114, 164, 230));
+}
+
+.conteiner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  margin-top: 40px;
+  max-width: 600px;
+  min-height: 300px;
+  background-color: #cddff7;
+  padding: 20px 40px 20px 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tabla {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.tabla td,
+.tabla th {
+  border: 1px solid black;
+  padding: 10px;
+  color: #383838;
+}
+
+.botones {
+  width: auto;
+  padding: 30px 50px;
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  grid-column: 1 / -1;
+}
+
+.stboton {
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid white;
+  filter: drop-shadow(2px 2px 3px blue);
+}
+
+.rdboton {
+  background-color: red;
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin-bottom: 20px;
+}
+
+.formulario label,
+.formulario .label {
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+  padding-right: 10px;
+  margin-bottom: 0;
+  height: 25px;
+}
+
+.formulario input,
+.formulario .datos {
+  display: flex;
+  align-items: flex-end;
+  justify-content: left;
+  margin-bottom: 10px;
+  height: 25px;
+}
