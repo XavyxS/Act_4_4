@@ -13,3 +13,4 @@ $routes->get('/dashboard', 'UserController::dashboard');
 $routes->get('/registroForm', 'AuthController::registroForm');
 $routes->post('/registro', 'AuthController::registro');
 $routes->get('/logout', 'AuthController::logout');
+$routes->get('/delete', 'UserController::delete');

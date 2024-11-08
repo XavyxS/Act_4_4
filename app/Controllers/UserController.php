@@ -8,10 +8,16 @@ class UserController extends BaseController
 {
     public function dashboard()
     {
-        // $model = new UsersModel();
-        // $data['users'] = $model->findAll();
+        $model = new UsersModel();
+        $data['users'] = $model->findAll();
 
-        return view('dashboard');
+        return view('dashboard', $data);
+    }
+
+    public function delete()
+    {
+      $model = new UsersModel();
+      
     }
 
 }

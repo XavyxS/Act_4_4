@@ -83,6 +83,7 @@ class AuthController extends BaseController
 
       $model->update($newUser['id'], [
         'last_login' => date('Y-m-d H:i:s'),
+        'created_at' => date('Y-m-d H:i:s'),
         'remember_token' => $token
       ]);
 
