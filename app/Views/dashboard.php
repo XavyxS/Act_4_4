@@ -19,6 +19,7 @@
           <th>ID</th>
           <th>Nombre</th>
           <th>Email</th>
+          <th>Última enttrada</th>
           <th>Acciones</th>
         </tr>
         <?php foreach ($users as $user): ?>
@@ -26,9 +27,10 @@
             <td><?= $user['id'] ?></td>
             <td><?= $user['name'] ?></td>
             <td><?= $user['email'] ?></td>
+            <td><?= $user['last_login'] ?></td>
             <td>
-              <a href="/users/edit/<?= $user['id'] ?>">Editar</a>
-              <a href="/delete/<?= $user['id'] ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?')">Eliminar</a>
+              <a href="/edit/<?= $user['id'] ?>">Editar</a>
+              <a href="/delete/<?= $user['id'] ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar al usuario: <?= $user['name'] ?>')">Eliminar</a>
             </td>
           </tr>
         <?php endforeach; ?>

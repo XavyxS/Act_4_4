@@ -13,4 +13,6 @@ $routes->get('/dashboard', 'UserController::dashboard');
 $routes->get('/registroForm', 'AuthController::registroForm');
 $routes->post('/registro', 'AuthController::registro');
 $routes->get('/logout', 'AuthController::logout');
-$routes->get('/delete', 'UserController::delete');
+$routes->get('/delete/(:num)', 'UserController::delete/$1');
+$routes->post('/update/(:num)', 'UserController::update/$1');
+$routes->get('/edit/(:num)', 'UserController::edit/$1');

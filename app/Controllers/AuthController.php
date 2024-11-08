@@ -21,7 +21,7 @@ class AuthController extends BaseController
           'email' => $user['email'],
           'is_logged_in' => true
         ]);
-        return redirect()->to('/dashboard'); // Redirige a /dashboard si la cookie existe
+        return redirect()->to('/dashboard');
       }
     }
     return view('welcome');
@@ -49,16 +49,13 @@ class AuthController extends BaseController
 
     $model = new UsersModel();
 
-    // Verificar si el usuario ya existe
     $user = $model->where('email', $email)->first();
     if ($user) {
       return redirect()->back()->with('error', 'Usuario ya registrado en el sistema');
     }
 
-    // Encriptar la contraseña
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Datos a insertar
     $data = [
       'name' => $name,
       'email' => $email,
@@ -66,7 +63,6 @@ class AuthController extends BaseController
       'last_login' => date('Y-m-d H:i:s')
     ];
 
-    // Insertar el nuevo usuario
     if ($model->insert($data)) {
       $newUser = $model->where('email', $email)->first();
 
