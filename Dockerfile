@@ -10,14 +10,14 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Copia los archivos de tu proyecto al directorio raíz del servidor web
 COPY . /var/www/html
 
-# Configura el directorio de trabajo
+# Establece el directorio de trabajo
 WORKDIR /var/www/html
 
 # Instala las dependencias de Composer
 RUN composer install --no-dev --prefer-dist
 
-# Expon el puerto 80
-EXPOSE 80
+# Expone el puerto 10000
+EXPOSE 10000
 
-# Comando para iniciar Apache
-CMD ["apache2-foreground"]
+# Comando para iniciar el servidor embebido de PHP
+CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
