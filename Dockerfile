@@ -16,8 +16,12 @@ WORKDIR /var/www/html
 # Instala las dependencias de Composer
 RUN composer install --no-dev --prefer-dist
 
+# Configurar Apache para usar el puerto 8080
+RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf
+
 # Expone el puerto 8080
 EXPOSE 8080
 
-# Comando para iniciar el servidor embebido de PHP en el puerto 8080
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+# Comando para iniciar Apache
+CMD ["apache2-foreground"]
