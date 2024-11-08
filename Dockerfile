@@ -16,8 +16,8 @@ WORKDIR /var/www/html
 # Instala las dependencias de Composer
 RUN composer install --no-dev --prefer-dist
 
-# Expone el puerto 10000
-EXPOSE 10000
+# Expone el puerto 8080
+EXPOSE 8080
 
-# Comando para iniciar el servidor embebido de PHP
-CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
+# Comando para iniciar el servidor embebido de PHP en el puerto 8080
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
