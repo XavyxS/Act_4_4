@@ -1,7 +1,6 @@
 services:
   - type: web
     name: YourAppName
-    env: php
-    buildCommand: composer install --no-dev --prefer-dist
-    startCommand: php -S 0.0.0.0:10000 -t public
+    env: docker
     plan: free
+    dockerfilePath: Dockerfile
