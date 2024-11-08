@@ -51,7 +51,7 @@ class AuthController extends BaseController
 
     $user = $model->where('email', $email)->first();
     if ($user) {
-      return redirect()->back()->with('error', 'Usuario ya registrado en el sistema');
+      return redirect()->to('/registroForm')->with('error', 'ESTE USUARIO YE ESTÁ REGISTRADO EN EL SISTEMA'); 
     }
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -85,7 +85,7 @@ class AuthController extends BaseController
 
       return redirect()->to('/dashboard');
     } else {
-      return redirect()->back()->with('error', 'Hubo un error al registrar el usuario.');
+      return redirect()->to('/registroForm')->with('error', 'NO SE REGISTRO. VUELVA A INTENTARLO');
     }
   }
 
@@ -103,7 +103,7 @@ class AuthController extends BaseController
     $user = $model->where('email', $email)->first();
 
     if (!$user) {
-      return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
+      return redirect()->to('/loginForm')->with('error', 'USUARIO NO REGISTRADO. VUELVA A INTENTARLO');
     }
 
     if (password_verify($password, $user['password'])) {
@@ -125,7 +125,7 @@ class AuthController extends BaseController
 
       return redirect()->to('/dashboard');
     } else {
-      return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
+      return redirect()->to('/loginForm')->with('error', 'DATOS INCORRECTOS. VUELVA A INTENTARLO');
     }
   }
 
