@@ -37,6 +37,12 @@
       </table>
     </div>
   </main>
+  <?php if (session()->getFlashdata('error')): ?>
+    <script>
+      alert('<?= session()->getFlashdata('error') ?>');
+    </script>
+  <?php endif; ?>
+  
   <?php include('footer.php'); ?>
 
 </body>

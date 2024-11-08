@@ -19,8 +19,10 @@
         <input type="text" name="name" value="<?= isset($user) ? $user['name'] : '' ?>" require>
         <label for="email">Correo:</label>
         <input type="email" name="email" value="<?= isset($user) ? $user['email'] : '' ?>" require>
-        <label for="password">Contraseña</label>
-        <input type="password" name="password" value="<?= isset($user) ? $user['password'] : '' ?>" require>
+        <?php if (!isset($user)) { ?>
+          <label for="password">Contraseña</label>
+          <input type="password" name="password" value="<?= isset($user) ? $user['password'] : '' ?>" require>
+        <?php } ?>
         <div class="botones">
           <button class="stboton" type="submit"><?= isset($user) ? 'Actualizar' : 'Registro' ?></button>
         </div>

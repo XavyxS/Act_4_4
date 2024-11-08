@@ -17,6 +17,13 @@ class UserController extends BaseController
 
   public function delete($id)
   {
+    $session = session();
+    $userId = $session->get('user_id');
+
+    if ($id == $userId) {
+      return redirect()->to('/dashboard')->with('error', 'NO PUEDES BORRRA EL USUARIO QUE ESTA ACTIVO');
+    }
+
     $model = new UsersModel();
     $model->delete($id);
 
@@ -37,15 +44,11 @@ class UserController extends BaseController
 
   public function update($id)
   {
-    $password = $this->request->getPost('password');
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
     $model = new UsersModel();
 
     $model->update($id, [
       'name' => $this->request->getPost('name'),
-      'email' => $this->request->getPost('email'),
-      'password' => $hashedPassword
+      'email' => $this->request->getPost('email')
     ]);
 
     return redirect()->to('/dashboard');

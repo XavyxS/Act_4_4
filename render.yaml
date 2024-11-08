@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: YourAppName
-    env: docker
-    plan: free
-    dockerfilePath: Dockerfile
