@@ -10,9 +10,11 @@
 </head>
 
 <body>
-  <?php include('header.php'); ?>
+  <?php include('header_user.php'); ?>
   <main>
-    <h1>HOLA, YA ESTÁS EN LA ONDA</h1>
+    <?php $session = session(); ?>
+    <h1>Bienvenido, <?= esc($session->get('name')) ?>!</h1>
+
   </main>
   <?php include('footer.php'); ?>
 

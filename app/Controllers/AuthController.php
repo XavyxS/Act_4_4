@@ -9,6 +9,21 @@ class AuthController extends BaseController
 {
   public function index()
   {
+    if (isset($_COOKIE['remember_token'])) {
+      $token = $_COOKIE['remember_token'];
+      $model = new UsersModel();
+      $user = $model->where('remember_token', $token)->first();
+      if ($user) {
+        $session = session();
+        $session->set([
+          'user_id' => $user['id'],
+          'name' => $user['name'],
+          'email' => $user['email'],
+          'is_logged_in' => true
+        ]);
+        return redirect()->to('/dashboard'); // Redirige a /dashboard si la cookie existe
+      }
+    }
     return view('welcome');
   }
 
@@ -34,24 +49,44 @@ class AuthController extends BaseController
 
     $model = new UsersModel();
 
+    // Verificar si el usuario ya existe
     $user = $model->where('email', $email)->first();
-
     if ($user) {
       return redirect()->back()->with('error', 'Usuario ya registrado en el sistema');
     }
 
+    // Encriptar la contraseña
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+    // Datos a insertar
     $data = [
       'name' => $name,
       'email' => $email,
       'password' => $hashedPassword,
-      // 'created_at' => date('Y-m-d H:i:s'),
       'last_login' => date('Y-m-d H:i:s')
     ];
 
+    // Insertar el nuevo usuario
     if ($model->insert($data)) {
-      return redirect()->to('/dashboard')->with('message', 'Usuario creado con éxito.');
+      $newUser = $model->where('email', $email)->first();
+
+      $session = session();
+      $session->set([
+        'user_id' => $newUser['id'],
+        'name' => $newUser['name'],
+        'email' => $newUser['email'],
+        'is_logged_in' => true
+      ]);
+
+      $token = bin2hex(random_bytes(16));
+      setcookie('remember_token', $token, time() + (60 * 60 * 24 * 180), '/');
+
+      $model->update($newUser['id'], [
+        'last_login' => date('Y-m-d H:i:s'),
+        'remember_token' => $token
+      ]);
+
+      return redirect()->to('/dashboard');
     } else {
       return redirect()->back()->with('error', 'Hubo un error al registrar el usuario.');
     }
@@ -83,11 +118,27 @@ class AuthController extends BaseController
         'is_logged_in' => true
       ]);
 
-      $model->update($user['id'], ['last_login' => date('Y-m-d H:i:s')]);
+      $token = bin2hex(random_bytes(16));
+      setcookie('remember_token', $token, time() + (60 * 60 * 24 * 180), '/');
+
+      $model->update($user['id'], [
+        'last_login' => date('Y-m-d H:i:s'),
+        'remember_token' => $token
+      ]);
 
       return redirect()->to('/dashboard');
     } else {
       return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
     }
+  }
+
+  public function logout()
+  {
+    $session = session();
+    $session->destroy();
+
+    // Borra la cookie;
+    setcookie('remember_token', '', time() - 3600, '/');
+    return redirect()->to('/home');
   }
 }
